@@ -4,7 +4,6 @@ const STORAGE_KEY = 'estodolist_tarefas_v1';
 let tasks = loadTasks();
 let currentView = 'home';
 let currentFilter = 'all';
-let confirmCallback = null;
 let toastTimer;
 
 function loadTasks() {
@@ -99,9 +98,7 @@ function createTaskElement(task){
   article.append(check,main,badge,menu);return article;
 }
 function openTaskMenu(task){
-  const action=prompt(`Tarefa: ${task.name}\nDigite 1 para editar ou 2 para excluir:`,'1');
-  if(action==='1')fillForm(task);
-  if(action==='2')askConfirm('Excluir tarefa?','Essa tarefa será removida da sua lista.',()=>{tasks=tasks.filter(t=>t.id!==task.id);persist();render();showToast('Tarefa excluída.')},'Sim, excluir');
+  fillForm(task);
 }
 function resetForm(){
   $('#taskForm').reset();$('#taskId').value='';$('#descCount').textContent='0';$('#formTitle').textContent='Cadastrar tarefa';$('#saveTask').textContent='▣ Salvar';$('#deleteTask').hidden=true;
@@ -114,7 +111,6 @@ function fillForm(task){
 }
 function openNewTask(){resetForm();$('#taskFormCard').scrollIntoView({behavior:'smooth',block:'center'});$('#taskName').focus()}
 function showToast(message){const toast=$('#toast');toast.textContent=message;toast.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>toast.classList.remove('show'),2600)}
-function askConfirm(title,message,callback,yesText='Confirmar'){ $('#confirmTitle').textContent=title;$('#confirmText').textContent=message;$('#confirmYes').textContent=yesText;$('#confirmModal').hidden=false;confirmCallback=callback}
 function renderSpecialView(view){
   const panel=$('.tasks-panel');if(!panel)return;
   if(view==='settings'){panel.innerHTML=`<div class="section-heading"><h2>Preferências</h2></div><div class="setting-row"><span>☾</span><div><b>Tema escuro</b><small>Um visual confortável para estudar à noite.</small></div><button class="secondary-btn" id="settingsTheme">Alternar</button></div><div class="setting-row"><span>♧</span><div><b>Notificações</b><small>Em uma versão web local, lembretes automáticos não são enviados.</small></div></div><div class="setting-row"><span>♡</span><div><b>Seus dados</b><small>As tarefas ficam salvas neste navegador.</small></div><button class="secondary-btn" id="exportTasks">Exportar</button></div>`;
@@ -133,7 +129,7 @@ $('#taskForm').addEventListener('submit',event=>{
   persist();resetForm();currentView='home';currentFilter='all';render();
 });
 $('#taskDescription').addEventListener('input',()=>$('#descCount').textContent=$('#taskDescription').value.length);
-$('#deleteTask').addEventListener('click',()=>{const id=$('#taskId').value;const task=tasks.find(t=>t.id===id);if(task)askConfirm('Excluir tarefa?','Tem certeza de que deseja excluir esta tarefa?',()=>{tasks=tasks.filter(t=>t.id!==id);persist();resetForm();render();showToast('Tarefa excluída com sucesso!')},'Sim, excluir')});
+$('#deleteTask').addEventListener('click',()=>{const id=$('#taskId').value;const task=tasks.find(t=>t.id===id);if(!task)return;tasks=tasks.filter(t=>t.id!==id);persist();resetForm();render();showToast('Tarefa excluída com sucesso!')});
 $('#cancelForm').addEventListener('click',()=>{resetForm();showToast('Edição cancelada.')});
 $('#closeForm').addEventListener('click',()=>{resetForm();showToast('Formulário fechado.')});
 $('#newTaskTop').addEventListener('click',openNewTask);$('#emptyAdd').addEventListener('click',openNewTask);
@@ -141,9 +137,6 @@ $('#searchInput').addEventListener('input',render);
 $('#filterPills').addEventListener('click',event=>{const btn=event.target.closest('[data-filter]');if(!btn)return;currentFilter=btn.dataset.filter;$$('.filter-pill').forEach(b=>b.classList.toggle('active',b===btn));render()});
 document.addEventListener('click',event=>{const nav=event.target.closest('[data-view]');if(nav)setView(nav.dataset.view)});
 $('#themeToggle').addEventListener('click',toggleTheme);
-$('#confirmCancel').addEventListener('click',()=>{$('#confirmModal').hidden=true;confirmCallback=null});
-$('#confirmYes').addEventListener('click',()=>{const callback=confirmCallback;$('#confirmModal').hidden=true;confirmCallback=null;if(callback)callback()});
-$('#confirmModal').addEventListener('click',event=>{if(event.target===$('#confirmModal')){$('#confirmModal').hidden=true;confirmCallback=null}});
 if(localStorage.getItem('estodolist_dark')==='1'){document.body.classList.add('dark');$('#themeToggle').textContent='☀'}
 const extraStyle=document.createElement('style');extraStyle.textContent=`.setting-row{display:flex;align-items:center;gap:13px;padding:17px 8px;border-bottom:1px solid var(--line)}.setting-row>span{font-size:22px;color:var(--purple)}.setting-row div{display:grid;gap:4px;flex:1}.setting-row small{font-size:12px;color:var(--muted)}.setting-row .secondary-btn{padding:8px 12px}.profile-view{text-align:center;padding:15px}.profile-avatar{width:82px;height:82px;margin:auto;border-radius:50%;display:grid;place-items:center;background:linear-gradient(140deg,#d7c5ff,#9c7ce1);color:white;font-size:36px;font-weight:900}.profile-view h2{margin:13px 0 3px}.profile-view>p{color:var(--muted)}.profile-view blockquote{margin:20px auto;padding:15px;background:#f5f0ff;border-radius:12px;color:#7661a5;font-style:italic;max-width:390px}.profile-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:20px 0}.profile-stats div{display:grid;gap:4px;padding:13px 4px;border:1px solid var(--line);border-radius:12px}.profile-stats strong{font-size:22px;color:var(--purple)}.profile-stats small{font-size:10px;color:var(--muted)}body.dark .profile-view blockquote{background:#3a2d52;color:#d2c3f2}`;document.head.appendChild(extraStyle);
 persist();render();
