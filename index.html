@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#8060ce">
+  <title>EsToDoList — Organize hoje, conquiste amanhã!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="topbar">
+      <button class="brand" data-view="home" aria-label="Página inicial">
+        <span>EsToDo<span class="brand-light">List</span><i class="spark"></i></span>
+      </button>
+      <div class="top-actions">
+        <button class="icon-btn theme-toggle" id="themeToggle" title="Alternar tema">☾</button>
+        <button class="icon-btn" data-view="settings" title="Configurações">♧</button>
+        <button class="avatar-mini" data-view="profile" title="Perfil">F</button>
+      </div>
+    </header>
+
+    <aside class="sidebar">
+      <div class="side-brand"><span class="brand-icon">✓</span><strong>EsToDoList</strong></div>
+      <nav>
+        <button class="nav-link active" data-view="home"><span>▣</span> Minhas tarefas</button>
+        <button class="nav-link" data-view="today"><span>▦</span> Hoje</button>
+        <button class="nav-link" data-view="completed"><span>☑</span> Concluídas</button>
+        <button class="nav-link" data-view="priorities"><span>↗</span> Prioridades</button>
+        <button class="nav-link" data-view="settings"><span>⚙</span> Configurações</button>
+      </nav>
+      <div class="sidebar-bottom">
+        <div class="user-chip"><div class="user-avatar">F</div><div><b id="sideUser">Flavianny Santos</b><small>Estudante</small></div><span>⌄</span></div>
+        <p>Pequenos passos também são grandes conquistas. <span>♥</span></p>
+      </div>
+    </aside>
+
+    <main class="main-content">
+      <section class="welcome-row">
+        <div><h1 id="pageTitle">Minhas tarefas <span class="wave">✦</span></h1><p class="subtitle" id="pageSubtitle"></p></div>
+        <button class="primary-btn" id="newTaskTop"><span>＋</span> Nova tarefa</button>
+      </section>
+
+      <section class="toolbar">
+        <label class="search-box"><span>⌕</span><input id="searchInput" type="search" placeholder="Busque uma tarefa..."></label>
+        <div class="filter-pills" id="filterPills">
+          <button class="filter-pill active" data-filter="all">Todas <b id="countAll">0</b></button>
+          <button class="filter-pill" data-filter="pending">Pendentes <b id="countPending">0</b></button>
+          <button class="filter-pill" data-filter="completed">Concluídas <b id="countCompleted">0</b></button>
+        </div>
+      </section>
+
+      <section class="dashboard-grid">
+        <div class="tasks-panel">
+          <div class="section-heading"><h2 id="listHeading">Sua lista</h2><span id="listCount">0 tarefas</span></div>
+          <div id="taskList" class="task-list"></div>
+          <div class="empty-state" id="emptyState"><div class="empty-illustration">☁️<span>✓</span></div><h3>Tudo tranquilo por aqui!</h3><p>Adicione uma tarefa e transforme seus planos em conquistas.</p><button class="primary-btn" id="emptyAdd">＋ Adicionar tarefa</button></div>
+        </div>
+
+        <aside class="right-column">
+          <div class="form-card" id="taskFormCard">
+            <div class="card-heading"><div><span class="round-plus">＋</span><h2 id="formTitle">Cadastrar tarefa</h2></div><button class="close-form" id="closeForm" aria-label="Fechar formulário">×</button></div>
+            <form id="taskForm">
+              <input type="hidden" id="taskId">
+              <label for="taskName">Tarefa</label>
+              <input id="taskName" maxlength="100" required placeholder="Digite o nome da tarefa...">
+              <div class="label-row"><label for="taskDescription">Descrição</label><small><span id="descCount">0</span>/500</small></div>
+              <textarea id="taskDescription" maxlength="500" rows="3" placeholder="Descreva sobre a tarefa..."></textarea>
+              <div class="form-two">
+                <div><label for="taskDate">Data de prazo</label><input id="taskDate" type="date"></div>
+                <div><label for="taskCategory">Categoria</label><select id="taskCategory"><option>Estudos</option><option>Pessoal</option><option>Trabalho</option><option>Leitura</option><option>Saúde</option><option>Outro</option></select></div>
+              </div>
+              <label>Prioridade</label>
+              <div class="priority-options">
+                <label class="priority-option"><input type="radio" name="priority" value="Baixa"><span>Baixa</span></label>
+                <label class="priority-option"><input type="radio" name="priority" value="Média" checked><span>Média</span></label>
+                <label class="priority-option"><input type="radio" name="priority" value="Alta"><span>Alta</span></label>
+              </div>
+              <div class="form-actions"><button type="button" class="secondary-btn" id="cancelForm">Cancelar</button><button class="primary-btn" type="submit" id="saveTask">▣ Salvar</button></div>
+              <button type="button" class="delete-inline" id="deleteTask" hidden>Excluir tarefa</button>
+            </form>
+          </div>
+
+          <div class="quote-card">
+            <div class="cat-books"><span>✿</span><div class="book book-one"></div><div class="book book-two"></div><div class="sleepy-cat">ᴗﻌᴗ</div></div>
+            <p>“Pequenos passos também são grandes conquistas.” <b>♡</b></p>
+          </div>
+          <div class="mini-summary">
+            <div><span class="summary-icon pink">☀</span><small>Para hoje</small><strong id="todayCount">0 tarefas</strong></div>
+            <div><span class="summary-icon green">✓</span><small>Concluídas</small><strong id="doneCount">0 tarefas</strong></div>
+          </div>
+        </aside>
+      </section>
+
+      <section class="quick-cards">
+        <button class="quick-card today-card" data-view="today"><span class="quick-icon">▦</span><span class="quick-arrow">›</span><h3>Hoje</h3><p id="quickToday">0 tarefas</p><span class="decoration">✿</span></button>
+        <button class="quick-card tomorrow-card" data-view="tomorrow"><span class="quick-icon">☼</span><span class="quick-arrow">›</span><h3>Amanhã</h3><p id="quickTomorrow">0 tarefas</p><span class="decoration">☀</span></button>
+        <button class="quick-card week-card" data-view="week"><span class="quick-icon">▦</span><span class="quick-arrow">›</span><h3>Esta semana</h3><p id="quickWeek">0 tarefas</p><span class="decoration">✧</span></button>
+        <button class="quick-card nextweek-card" data-view="nextweek"><span class="quick-icon">✦</span><span class="quick-arrow">›</span><h3>Semana que vem</h3><p id="quickNextWeek">0 tarefas</p><span class="decoration">★</span></button>
+      </section>
+      <footer>Feito por Flavianny. <span>♥</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <div class="modal-backdrop" id="confirmModal" hidden>
+    <div class="confirm-card"><span class="confirm-symbol">?</span><h2 id="confirmTitle">Confirmar ação</h2><p id="confirmText">Deseja continuar?</p><div class="form-actions"><button class="secondary-btn" id="confirmCancel">Cancelar</button><button class="primary-btn danger-btn" id="confirmYes">Confirmar</button></div></div>
+  </div>
+  <script src="script.js"></script>
+</body>
+</html>
