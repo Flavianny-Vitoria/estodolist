@@ -53,7 +53,16 @@ function getVisibleTasks(){
     if(!a.date)return 1;if(!b.date)return -1;return a.date.localeCompare(b.date);
   });
 }
+function ensureTasksPanel(){
+  const panel=$('.tasks-panel');
+  if(panel&&!$('#taskList')){
+    panel.innerHTML=`<div class="section-heading"><h2 id="listHeading">Sua lista</h2><span id="listCount">0 tarefas</span></div><div id="taskList" class="task-list"></div><div class="empty-state" id="emptyState"><div class="empty-illustration">☁️<span>✓</span></div><h3>Tudo tranquilo por aqui!</h3><p>Adicione uma tarefa e transforme seus planos em conquistas.</p><button class="primary-btn" id="emptyAdd">＋ Adicionar tarefa</button></div>`;
+    $('#emptyAdd').addEventListener('click',openNewTask);
+  }
+}
+
 function render(){
+  ensureTasksPanel();
   const counts={all:tasks.length,pending:tasks.filter(t=>!t.done).length,completed:tasks.filter(t=>t.done).length};
   $('#countAll').textContent=counts.all;$('#countPending').textContent=counts.pending;$('#countCompleted').textContent=counts.completed;
   $('#listCount').textContent=`${getVisibleTasks().length} ${getVisibleTasks().length===1?'tarefa':'tarefas'}`;
