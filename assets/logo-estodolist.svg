@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="520" height="130" viewBox="0 0 520 130" role="img" aria-labelledby="title desc">
+<title id="title">EsToDoList</title><desc id="desc">Um gatinho lilás dormindo sobre dois livros roxos ao lado do nome EsToDoList.</desc>
+<g transform="translate(8 7)" stroke-linecap="round" stroke-linejoin="round">
+  <path d="M17 83 Q19 72 32 70 L154 70 Q166 70 168 82 L164 104 Q162 112 150 112 L27 112 Q14 111 15 100Z" fill="#6844bd" stroke="#e4d7ff" stroke-width="2.5"/>
+  <path d="M22 83 L151 83 M28 94 L148 94" fill="none" stroke="#a78bea" stroke-width="2"/>
+  <path d="M28 72 Q30 60 42 60 L157 60 Q169 61 169 72 L165 91 Q164 98 151 98 L27 98 Q18 97 19 87Z" fill="#9b7be0" stroke="#eee5ff" stroke-width="2.5"/>
+  <path d="M30 73 L155 73 M33 85 L151 85" fill="none" stroke="#cbb9ff" stroke-width="2"/>
+  <path d="M45 65 Q30 54 31 39 L32 20 L53 35 Q70 20 91 24 L111 8 L119 34 Q143 42 143 61 Q143 81 116 84 L63 84 Q43 82 45 65Z" fill="#d9caff" stroke="#f7f1ff" stroke-width="3"/>
+  <path d="M36 28 L49 39 L40 43Z" fill="#f5a9d0" stroke="#f7f1ff" stroke-width="1.5"/>
+  <path d="M106 18 L113 36 L124 30Z" fill="#f5a9d0" stroke="#f7f1ff" stroke-width="1.5"/>
+  <path d="M58 55 Q65 63 72 55 M91 55 Q98 63 105 55" fill="none" stroke="#55338e" stroke-width="3.5"/>
+  <path d="M78 64 Q82 68 86 64 M82 64 L82 68" fill="none" stroke="#55338e" stroke-width="2.5"/>
+  <path d="M62 43 Q67 40 71 43 M87 39 Q92 36 96 39" fill="none" stroke="#b29be8" stroke-width="3"/>
+  <path d="M48 75 Q56 85 69 80 L109 80 Q120 80 126 72" fill="none" stroke="#b9a2ee" stroke-width="3"/>
+  <path d="M146 65 Q164 74 154 87 Q148 93 139 86" fill="none" stroke="#d9caff" stroke-width="9"/>
+  <path d="M146 65 Q164 74 154 87" fill="none" stroke="#f7f1ff" stroke-width="2.5"/>
+  <path d="M8 47 L12 39 L16 47 L24 51 L16 55 L12 63 L8 55 L0 51Z" fill="#f6d8f1"/>
+  <path d="M153 25 L157 17 L161 25 L169 29 L161 33 L157 41 L153 33 L145 29Z" fill="#d8c3ff"/>
+</g>
+<text x="190" y="77" font-family="Nunito, Trebuchet MS, sans-serif" font-size="47" font-weight="900" letter-spacing="-1.8" fill="#ffffff">EsToDo</text>
+<text x="355" y="77" font-family="Nunito, Trebuchet MS, sans-serif" font-size="47" font-weight="800" letter-spacing="-1.8" fill="#eadfff">List</text>
+<path d="M194 91 Q280 103 389 91" fill="none" stroke="#cdb8ff" stroke-width="3" stroke-linecap="round"/>
+<path d="M475 35 L479 27 L483 35 L491 39 L483 43 L479 51 L475 43 L467 39Z" fill="#f8e5ff"/>
+</svg>
